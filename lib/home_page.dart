@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/station_list_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -80,6 +81,14 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     print('클릭');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return StationListPage();
+                        },
+                      ),
+                    );
                   },
 
                   style: ElevatedButton.styleFrom(
