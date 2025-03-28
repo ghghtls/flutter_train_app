@@ -43,7 +43,28 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 8), // 간격
-                              Text('선택', style: TextStyle(fontSize: 40)),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return StationListPage();
+                                      },
+                                      settings: RouteSettings(
+                                        arguments: 'test',
+                                      ),
+
+                                      ///값넘기는 코드
+                                    ),
+                                  );
+                                },
+
+                                child: Text(
+                                  '선택',
+                                  style: TextStyle(fontSize: 40),
+                                ),
+                              ),
                             ],
                           ),
                           SizedBox(width: 40),
@@ -67,7 +88,28 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 8), // 간격
-                              Text('선택', style: TextStyle(fontSize: 40)),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return StationListPage();
+                                      },
+                                      settings: RouteSettings(
+                                        arguments: 'test',
+                                      ),
+
+                                      ///값넘기는 코드
+                                    ),
+                                  );
+                                },
+
+                                child: Text(
+                                  '선택',
+                                  style: TextStyle(fontSize: 40),
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -81,17 +123,6 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     print('클릭');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return StationListPage();
-                        },
-                        settings: RouteSettings(arguments: 'test'),
-
-                        ///값넘기는 코드
-                      ),
-                    );
                   },
 
                   style: ElevatedButton.styleFrom(
