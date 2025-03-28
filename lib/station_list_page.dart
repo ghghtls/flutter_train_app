@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
 class StationListPage extends StatelessWidget {
+  final List<String> stations;
+  // '수서',
+  // '동탄',
+  // '평택지제',
+  // '천안아산',
+  // '오송',
+  // '대전',
+  // '김천구미',
+  // '동대구',
+  // '경주',
+  // '울산',
+  // '부산',
+  StationListPage({required this.stations});
   @override
   Widget build(BuildContext context) {
-    final listpage = ModalRoute.of(context)?.settings.arguments as String?;
+    final listpage =
+        ModalRoute.of(context)?.settings.arguments as List<String>?;
 
-    ///받는 코드!
+    final stationList = listpage ?? stations;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -16,7 +31,12 @@ class StationListPage extends StatelessWidget {
         ),
         title: Text('출발역'),
       ),
-      body: Center(child: Text(listpage ?? '데이터 없음')),
+      body: ListView.builder(
+        itemCount: stationList.length,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text(stationList[index]));
+        },
+      ),
     );
   }
 }

@@ -2,6 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_train_app/station_list_page.dart';
 
 class HomePage extends StatelessWidget {
+  final List<String> stations = [
+    '수서',
+    '동탄',
+    '평택지제',
+    '천안아산',
+    '오송',
+    '대전',
+    '김천구미',
+    '동대구',
+    '경주',
+    '울산',
+    '부산',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +62,10 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return StationListPage();
-                                      },
-                                      settings: RouteSettings(
-                                        arguments: 'test',
-                                      ),
-
-                                      ///값넘기는 코드
+                                      builder:
+                                          (context) => StationListPage(
+                                            stations: stations,
+                                          ),
                                     ),
                                   );
                                 },
@@ -93,14 +103,10 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return StationListPage();
-                                      },
-                                      settings: RouteSettings(
-                                        arguments: 'test',
-                                      ),
-
-                                      ///값넘기는 코드
+                                      builder:
+                                          (context) => StationListPage(
+                                            stations: stations,
+                                          ),
                                     ),
                                   );
                                 },
