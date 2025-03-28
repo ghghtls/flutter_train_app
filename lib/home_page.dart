@@ -65,6 +65,9 @@ class HomePage extends StatelessWidget {
                                       builder:
                                           (context) => StationListPage(
                                             stations: stations,
+                                            type: '출발역',
+
+                                            ///타입설정해서 리스트 앱바에 맞게 뿌려주기
                                           ),
                                     ),
                                   );
@@ -106,6 +109,9 @@ class HomePage extends StatelessWidget {
                                       builder:
                                           (context) => StationListPage(
                                             stations: stations,
+                                            type: '도착역',
+
+                                            ///타입설정해서 리스트 앱바에 맞게 뿌려주기
                                           ),
                                     ),
                                   );

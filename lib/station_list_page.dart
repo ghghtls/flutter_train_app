@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class StationListPage extends StatelessWidget {
   final List<String> stations;
+  final String type;
   // '수서',
   // '동탄',
   // '평택지제',
@@ -13,7 +14,7 @@ class StationListPage extends StatelessWidget {
   // '경주',
   // '울산',
   // '부산',
-  StationListPage({required this.stations});
+  StationListPage({required this.stations, required this.type});
   @override
   Widget build(BuildContext context) {
     final listpage =
@@ -29,7 +30,7 @@ class StationListPage extends StatelessWidget {
             Navigator.pop(context); // 뒤로가기
           },
         ),
-        title: Text('출발역'),
+        title: Text(type),
       ),
       body: ListView.builder(
         itemCount: stationList.length,
