@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_train_app/seat_page.dart';
 import 'package:flutter_train_app/station_list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String selectedDeparture = ''; //
   String? selectedArrive = '';
+  int? selectedRow;
+  int? selectedCol;
+  void onSelected(int row, int col) {
+    setState(() {
+      selectedRow = row;
+      selectedCol = col;
+    });
+  }
 
   final List<String> stations = [
     '수서',
@@ -149,9 +158,17 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: ElevatedButton(
-                  onPressed: () {
-                    print('클릭');
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) =>
+                                SeatPage(selectedCol, selectedRow, onSelected),
+                      ),
+                    );
                   },
+
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(325, 50),
                     backgroundColor: Colors.purple,
