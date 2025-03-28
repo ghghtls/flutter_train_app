@@ -9,10 +9,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String selectedDeparture = ''; //
-  String? selectedArrive = '';
   int? selectedRow;
   int? selectedCol;
+  String selectedDeparture = ''; //
+  String selectedArrive = '';
   void onSelected(int row, int col) {
     setState(() {
       selectedRow = row;
@@ -163,8 +163,13 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder:
-                            (context) =>
-                                SeatPage(selectedCol, selectedRow, onSelected),
+                            (context) => SeatPage(
+                              selectedRow,
+                              selectedCol,
+                              selectedDeparture,
+                              selectedArrive,
+                              onSelected,
+                            ),
                       ),
                     );
                   },

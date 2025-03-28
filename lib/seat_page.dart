@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SeatPage extends StatelessWidget {
-  SeatPage(this.selectedRow, this.selectedCol, this.onSelected);
+  SeatPage(
+    this.selectedRow,
+    this.selectedCol,
+    this.selectedDeparture,
+    this.selectedArrive,
+    this.onSelected,
+  );
 
   final int? selectedRow;
   final int? selectedCol;
+  final String selectedDeparture;
+  final String selectedArrive;
   final void Function(int row, int col) onSelected;
   @override
   Widget build(BuildContext context) {
@@ -19,14 +27,38 @@ class SeatPage extends StatelessWidget {
           },
         ),
       ),
-      body: ColoredBox(
-        color: Colors.grey[200]!,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, //세로 가운데 정렬
-          children: [
-            // 위젯들
-          ],
-        ),
+
+      body: Column(
+        children: [
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+
+              children: [
+                Text(
+                  selectedDeparture,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.purple,
+                    fontSize: 30,
+                  ),
+                ),
+                SizedBox(width: 30),
+                Icon(Icons.arrow_circle_right_outlined, size: 30),
+                SizedBox(width: 30),
+                Text(
+                  selectedArrive,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.purple,
+                    fontSize: 30,
+                  ),
+                ), // 위젯들
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
