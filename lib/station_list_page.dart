@@ -20,17 +20,12 @@ class StationListPage extends StatelessWidget {
   StationListPage({required this.stations, required this.type});
   @override
   Widget build(BuildContext context) {
-    final listpage =
-        ModalRoute.of(context)?.settings.arguments as List<String>?;
-
-    final stationList = listpage ?? stations;
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // 뒤로가기
+            Navigator.pop(context, stations); // 뒤로가기
           },
         ),
         title: Text(type),
@@ -38,7 +33,7 @@ class StationListPage extends StatelessWidget {
         ///홈페이지에 설정한 값 설정
       ),
       body: ListView.builder(
-        itemCount: stationList.length,
+        itemCount: stations.length,
         itemBuilder: (context, index) {
           return Column(
             children: [
@@ -48,13 +43,13 @@ class StationListPage extends StatelessWidget {
                   alignment: Alignment.centerLeft, // 가로는 왼쪽, 수직은 가운데
 
                   child: Text(
-                    stationList[index],
+                    stations[index],
 
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 onTap: () {
-                  Navigator.pop(context, stationList[index]);
+                  Navigator.pop(context, stations[index]);
                 },
               ),
               Container(height: 1, color: Colors.grey[300]!),
