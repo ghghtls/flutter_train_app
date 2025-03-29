@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_train_app/station_list_page.dart';
 
-<<<<<<< Updated upstream
-class HomePage extends StatelessWidget {
-=======
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     '부산',
   ];
 
->>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,13 +63,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
-                                ),
-<<<<<<< Updated upstream
-                              ),
-                              SizedBox(height: 8), // 간격
-                              Text('선택', style: TextStyle(fontSize: 40)),
-                            ],
-=======
+
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
@@ -102,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
->>>>>>> Stashed changes
+
                           ),
                           SizedBox(width: 20),
                           Container(
@@ -122,12 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.grey,
                                   ),
                                 ),
-<<<<<<< Updated upstream
-                              ),
-                              SizedBox(height: 8), // 간격
-                              Text('선택', style: TextStyle(fontSize: 40)),
-                            ],
-=======
+
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
@@ -156,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
->>>>>>> Stashed changes
+
                           ),
                         ],
                       ),
