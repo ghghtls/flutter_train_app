@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/home_page.dart';
 
 class SeatPage extends StatefulWidget {
   SeatPage(
@@ -178,6 +180,65 @@ class _SeatPageState extends State<SeatPage> {
                 }),
               ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purple,
+            padding: EdgeInsets.symmetric(vertical: 16),
+          ),
+          onPressed: () {
+            if (_selectedRow == null || _selectedCol == null) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('좌석을 먼저 선택해주세요')));
+              return;
+            }
+
+            String colLabel = ColumnLabels[_selectedCol!];
+            int rowLabel = _selectedRow! + 1;
+
+            showCupertinoDialog(
+              context: context,
+              builder: (context) {
+                return CupertinoAlertDialog(
+                  title: Text('예매 하시겠습니까?'),
+                  content: Text('좌석: $rowLabel-$colLabel'),
+                  actions: [
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text('취소', style: TextStyle(color: Colors.red)),
+                    ),
+                    CupertinoDialogAction(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // 다이얼로그 닫기
+
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+
+                            ///확인버튼 누르면
+                          ), //
+                        );
+                      },
+                      child: Text('확인', style: TextStyle(color: Colors.blue)),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Text(
+            '예매하기',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
