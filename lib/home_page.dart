@@ -87,17 +87,51 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
+                                    /// 도착역을 제외한 도착역 리스트 만들기
+                                    final filteredStations1 =
+                                        stations
+                                            .where(
+                                              (station) =>
+                                                  station != selectedArrive,
+
+                                              ///도착역 제외된 리스트 전달
+                                            )
+                                            .toList();
                                     final result = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder:
                                             (context) => StationListPage(
-                                              stations: stations,
+                                              stations: filteredStations1,
                                               type: '출발역',
                                             ),
                                       ),
                                     );
                                     if (result != null) {
+                                      if (result == selectedDeparture) {
+                                        // 출발역과 같은 역 선택 시 경고 다이얼로그
+                                        showDialog(
+                                          context: context,
+                                          builder:
+                                              (context) => AlertDialog(
+                                                title: Text('잘못된 선택'),
+                                                content: Text(
+                                                  '중복입니다. 다시 선택해주세요',
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed:
+                                                        () =>
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop(),
+                                                    child: Text('확인'),
+                                                  ),
+                                                ],
+                                              ),
+                                        );
+                                        return;
+                                      }
                                       setState(() {
                                         selectedDeparture = result;
                                       });
@@ -138,17 +172,52 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
+                                    /// 출발역을 제외한 도착역 리스트 만들기
+                                    final filteredStations2 =
+                                        stations
+                                            .where(
+                                              (station) =>
+                                                  station != selectedDeparture,
+                                            )
+                                            .toList();
+
                                     final result = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder:
                                             (context) => StationListPage(
-                                              stations: stations,
+                                              stations: filteredStations2,
+
+                                              ///출발역 제외된 리스트 전달
                                               type: '도착역',
                                             ),
                                       ),
                                     );
                                     if (result != null) {
+                                      if (result == selectedArrive) {
+                                        // 도착역과 같은 역 선택 시 경고 다이얼로그
+                                        showDialog(
+                                          context: context,
+                                          builder:
+                                              (context) => AlertDialog(
+                                                title: Text('잘못된 선택'),
+                                                content: Text(
+                                                  '중복입니다. 다시 선택해주세요',
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed:
+                                                        () =>
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop(),
+                                                    child: Text('확인'),
+                                                  ),
+                                                ],
+                                              ),
+                                        );
+                                        return;
+                                      }
                                       setState(() {
                                         selectedArrive = result;
                                       });
@@ -158,6 +227,7 @@ class _HomePageState extends State<HomePage> {
                                     selectedArrive!.isEmpty
                                         ? '선택'
                                         : selectedArrive!,
+
                                     style: TextStyle(fontSize: 30),
                                   ),
                                 ),
