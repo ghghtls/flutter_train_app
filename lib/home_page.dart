@@ -40,7 +40,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: Text('기차예매'), centerTitle: true),
       body: ColoredBox(
-        color: Colors.grey[200]!,
+        color:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : Colors.grey[200]!,
         child: SizedBox.expand(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +56,10 @@ class _HomePageState extends State<HomePage> {
                   ///출발역,도착역 감싸고 있는 박스
                   padding: EdgeInsets.all(30),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey
+                            : Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
@@ -71,7 +77,11 @@ class _HomePageState extends State<HomePage> {
                                   '출발역',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.grey,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.grey,
                                   ),
                                 ),
                                 SizedBox(height: 8),
@@ -118,7 +128,11 @@ class _HomePageState extends State<HomePage> {
                                   '도착역',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.grey,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.grey,
                                   ),
                                 ),
                                 SizedBox(height: 8),
