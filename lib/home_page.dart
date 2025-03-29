@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
-                                ),
+
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
+
                           ),
                           SizedBox(width: 20),
                           Container(
@@ -111,6 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.grey,
                                   ),
                                 ),
+
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
@@ -139,6 +141,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
+
                           ),
                         ],
                       ),
@@ -151,6 +154,14 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   onPressed: () {
                     print('클릭');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return StationListPage();
+                        },
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(325, 50),

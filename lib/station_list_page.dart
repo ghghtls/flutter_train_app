@@ -20,6 +20,7 @@ class StationListPage extends StatelessWidget {
   StationListPage({required this.stations, required this.type});
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -58,5 +59,6 @@ class StationListPage extends StatelessWidget {
         },
       ),
     );
+
   }
 }
