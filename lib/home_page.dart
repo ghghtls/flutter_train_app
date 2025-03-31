@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
     '울산',
     '부산',
   ];
+  bool isbutton = true;
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +245,18 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: ElevatedButton(
                   onPressed: () async {
+                    /// 출발역 또는 도착역이 선택되지 않았을 경우
+                    if (selectedDeparture == null ||
+                        selectedDeparture.isEmpty ||
+                        selectedArrive == null ||
+                        selectedArrive.isEmpty) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('기차역을 선택해주세요')));
+                      return;
+
+                      ///여기서 함수 종료 >다음페이지로 안넘어감
+                    }
                     final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
