@@ -190,7 +190,7 @@ class _SeatPageState extends State<SeatPage> {
             backgroundColor: Colors.purple,
             padding: EdgeInsets.symmetric(vertical: 16),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (_selectedRow == null || _selectedCol == null) {
               ScaffoldMessenger.of(
                 context,
@@ -201,7 +201,7 @@ class _SeatPageState extends State<SeatPage> {
             String colLabel = ColumnLabels[_selectedCol!];
             int rowLabel = _selectedRow! + 1;
 
-            showCupertinoDialog(
+            final confirmed = await showCupertinoDialog<bool>(
               context: context,
               builder: (context) {
                 return CupertinoAlertDialog(
@@ -210,27 +210,24 @@ class _SeatPageState extends State<SeatPage> {
                   actions: [
                     CupertinoDialogAction(
                       isDefaultAction: true,
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Navigator.of(context).pop(false),
                       child: Text('취소', style: TextStyle(color: Colors.red)),
                     ),
                     CupertinoDialogAction(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // 다이얼로그 닫기
-
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-
-                            ///확인버튼 누르면
-                          ), //
-                        );
-                      },
+                      onPressed: () => Navigator.of(context).pop(true),
                       child: Text('확인', style: TextStyle(color: Colors.blue)),
                     ),
                   ],
                 );
               },
             );
+
+            // 확인 눌렀을 때만 좌석 정보 전달
+            if (confirmed == true) {
+              Navigator.of(
+                context,
+              ).pop({'row': _selectedRow, 'col': _selectedCol});
+            }
           },
           child: Text(
             '예매하기',

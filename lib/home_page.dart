@@ -21,6 +21,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  String? selectedSeatLabel;
+
   final List<String> stations = [
     '수서',
     '동탄',
@@ -88,14 +90,11 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
-                                    /// 도착역을 제외한 도착역 리스트 만들기
                                     final filteredStations1 =
                                         stations
                                             .where(
                                               (station) =>
                                                   station != selectedArrive,
-
-                                              ///도착역 제외된 리스트 전달
                                             )
                                             .toList();
                                     final result = await Navigator.push(
@@ -110,7 +109,6 @@ class _HomePageState extends State<HomePage> {
                                     );
                                     if (result != null) {
                                       if (result == selectedDeparture) {
-                                        // 출발역과 같은 역 선택 시 경고 다이얼로그
                                         showDialog(
                                           context: context,
                                           builder:
@@ -173,7 +171,6 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 8),
                                 GestureDetector(
                                   onTap: () async {
-                                    /// 출발역을 제외한 도착역 리스트 만들기
                                     final filteredStations2 =
                                         stations
                                             .where(
@@ -181,22 +178,18 @@ class _HomePageState extends State<HomePage> {
                                                   station != selectedDeparture,
                                             )
                                             .toList();
-
                                     final result = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder:
                                             (context) => StationListPage(
                                               stations: filteredStations2,
-
-                                              ///출발역 제외된 리스트 전달
                                               type: '도착역',
                                             ),
                                       ),
                                     );
                                     if (result != null) {
                                       if (result == selectedArrive) {
-                                        // 도착역과 같은 역 선택 시 경고 다이얼로그
                                         showDialog(
                                           context: context,
                                           builder:
@@ -225,10 +218,9 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   },
                                   child: Text(
-                                    selectedArrive!.isEmpty
+                                    selectedArrive.isEmpty
                                         ? '선택'
-                                        : selectedArrive!,
-
+                                        : selectedArrive,
                                     style: TextStyle(fontSize: 30),
                                   ),
                                 ),
@@ -241,52 +233,76 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    /// 출발역 또는 도착역이 선택되지 않았을 경우
-                    if (selectedDeparture == null ||
-                        selectedDeparture.isEmpty ||
-                        selectedArrive == null ||
-                        selectedArrive.isEmpty) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text('기차역을 선택해주세요')));
-                      return;
 
-                      ///여기서 함수 종료 >다음페이지로 안넘어감
-                    }
-                    final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) => SeatPage(
-                              selectedRow,
-                              selectedCol,
-                              selectedDeparture,
-                              selectedArrive,
-                              onSelected,
-                            ),
-                      ),
-                    );
-                  },
-
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(325, 50),
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
+              /// 선택한 좌석 텍스트 추가 위치
+              if (selectedSeatLabel != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    '좌석선택',
+                    '선택한 좌석: $selectedSeatLabel',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.purple,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (selectedDeparture.isEmpty ||
+                            selectedArrive.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('기차역을 선택해주세요')),
+                          );
+                          return;
+                        }
+
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => SeatPage(
+                                  selectedRow,
+                                  selectedCol,
+                                  selectedDeparture,
+                                  selectedArrive,
+                                  onSelected,
+                                ),
+                          ),
+                        );
+                        print(result.runtimeType);
+                        if (result != null && result is Map<String, int?>) {
+                          int row = result['row']!;
+                          int col = result['col']!;
+                          String colLabel = ['A', 'B', 'C', 'D'][col];
+                          setState(() {
+                            selectedSeatLabel = '${row + 1}-$colLabel';
+                            print('선택된 좌석: $selectedSeatLabel');
+                          });
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(325, 50),
+                        backgroundColor: Colors.purple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        '좌석선택',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
