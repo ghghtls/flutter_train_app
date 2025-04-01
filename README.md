@@ -42,6 +42,8 @@
 
 - [x] 출발역과 같은 역 선택시 경고 다이얼로그 중복 방지 메세지
 
+- [x] 예매하기 버튼을 누르면 홈페이지에 선택한 좌석 보여주는 기능 
+
 
 
 
@@ -141,4 +143,24 @@ if (selectedDeparture == null || selectedDeparture.isEmpty ||
   return;
 }
 
+```
+
+### 문제- 추가 기능 구현에서 예매하기를 눌렀는데 홈페이지 페이지에서 선택한 좌석의 값이 안나옴
+
+### 해결- result is Map<String, int> 이부분에서 nullable 체크안해서 안해서 문제 생김 
+result is Map<String, int?>로 바꿔주니까 화면에 나타남 
+**print(result.runtimeType); 오류 잡을때 이 코드를 쓰면서 반환타입을 체크해야될거 같다**
+**Dart에서는 Map['key']로 값을 꺼낼 때 항상 nullable**
+
+```dart
+  print(result.runtimeType);
+                        if (result != null && result is Map<String, int?>) {
+                          int row = result['row']!;
+                          int col = result['col']!;
+                          String colLabel = ['A', 'B', 'C', 'D'][col];
+                          setState(() {
+                            selectedSeatLabel = '${row + 1}-$colLabel';
+                            print('선택된 좌석: $selectedSeatLabel');
+                          });
+                        }
 ```
